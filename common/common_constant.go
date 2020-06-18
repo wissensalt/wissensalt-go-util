@@ -1,0 +1,16 @@
+package common
+
+const Colon = ":"
+const SemiColon = ";"
+const Equals = "="
+const Comma = ","
+const Hyphen = "-"
+const Underscore = "_"
+const OpenParenthesis = "("
+const CloseParenthesis = ")"
+const At = "@"
+const Slash = "/"
+const Question = "?"
+const Exclamation = "!"
+const True = "true"
+const False = "false"
