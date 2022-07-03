@@ -13,7 +13,7 @@ import (
 
 var AppLogger *log.Logger
 
-func Init()  {
+func Init() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Failed to load .env file : ", err)
@@ -27,20 +27,19 @@ func Init()  {
 		}
 
 		AppLogger = log.New(e, "", log.Ldate|log.Ltime)
-		maxFileSize,_ := strconv.Atoi(os.Getenv("logger.maxsize"))
-		maxBackups,_ := strconv.Atoi(os.Getenv("logger.maxbackups"))
-		maxAge,_ := strconv.Atoi(os.Getenv("logger.maxage"))
-		compress,_ := strconv.ParseBool(os.Getenv("logger.compress"))
+		maxFileSize, _ := strconv.Atoi(os.Getenv("logger.maxsize"))
+		maxBackups, _ := strconv.Atoi(os.Getenv("logger.maxbackups"))
+		maxAge, _ := strconv.Atoi(os.Getenv("logger.maxage"))
+		compress, _ := strconv.ParseBool(os.Getenv("logger.compress"))
 		AppLogger.SetOutput(&lumberjack.Logger{
 			Filename:   loggerFileName,
 			MaxSize:    maxFileSize, // megabytes
 			MaxBackups: maxBackups,
-			MaxAge:     maxAge, //days
+			MaxAge:     maxAge,   //days
 			Compress:   compress, // disabled by default
 		})
 	}
 }
-
 
 func CheckFatal(err error) {
 	if err != nil {
@@ -48,21 +47,6 @@ func CheckFatal(err error) {
 	}
 }
 
-func IsNumeric(s string) bool {
-	if _, err := strconv.Atoi(s); err == nil {
-		return true
-	}
-
-	return false
-}
-
-func IsBoolean(s string) bool {
-	if s == "true" || s == "false" {
-		return true
-	}
-
-	return false
-}
 
 func FindMissingNumbers(p_Array []int) []int {
 	var result []int
@@ -81,45 +65,6 @@ func FindMissingDates(p_Array []time.Time) []time.Time {
 	return result
 }
 
-func UniqueNonEmptyElementsOf(s []string) []string {
-	unique := make(map[string]bool, len(s))
-	us := make([]string, len(unique))
-	for _, elem := range s {
-		if len(elem) != 0 {
-			if !unique[elem] {
-				us = append(us, elem)
-				unique[elem] = true
-			}
-		}
-	}
-
-	return us
-}
-
-func ConvertStringArrToIntArr(p_StringArr []string) []int {
-	var res []int //init array with the size of arr
-	for _, data := range p_StringArr {
-		resInt, _ := strconv.Atoi(data)
-		res = append(res, resInt)
-	}
-
-	return res
-}
-
-func GetLastNCharacters(p_String string, p_NCharacter int) string {
-	return p_String[len(p_String)-p_NCharacter:]
-}
-
-func RemoveZeroInfrontOfInteger(p_String string) string {
-	var temp string
-	if p_String[:0] == "0" {
-		temp = p_String[:1]
-	} else {
-		temp = p_String
-	}
-
-	return temp
-}
 
 var src = rand.NewSource(time.Now().UnixNano())
 

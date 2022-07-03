@@ -10,6 +10,7 @@ func CheckFileSize(file *os.File) int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return fileInfo.Size()
 }
 
@@ -18,6 +19,7 @@ func CheckFileSizeByPath(filePath string) int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return fileInfo.Size()
 }
 
@@ -27,13 +29,15 @@ func ListDirectoryContent(pathToScan string) []string {
 		result = append(result, path)
 		return nil
 	})
+
 	if err != nil {
 		panic(err)
 	}
+
 	return result
 }
 
-func CreateDirectoryIfNotExist(pathToScan string)  {
+func CreateDirectoryIfNotExist(pathToScan string) {
 	if _, err := os.Stat(pathToScan); os.IsNotExist(err) {
 		err = os.MkdirAll(pathToScan, 0755)
 		if err != nil {
@@ -43,6 +47,6 @@ func CreateDirectoryIfNotExist(pathToScan string)  {
 }
 
 //fileName include path
-func CreateFileIfNotExist(fileName string) (*os.File, error)  {
+func CreateFileIfNotExist(fileName string) (*os.File, error) {
 	return os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0660)
 }
